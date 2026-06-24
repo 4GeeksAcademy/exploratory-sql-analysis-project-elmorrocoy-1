@@ -37,6 +37,7 @@ FROM observations;
 --Cuántas observaciones hay para la región con region_id = 2
 SELECT * FROM observations
 WHERE region_id = 2;
+
 --Cuántas observaciones se registraron el día 1998-08-08
 SELECT * FROM observations
 WHERE observation_date = '1998-08-08';
@@ -90,7 +91,12 @@ JOIN species ON observations.species_id = species.id;
 
 --Cuál es la especie más observada por cada región
 
-
+SELECT r.name AS region,s.scientific_name, COUNT(*) AS total
+FROM observations o
+JOIN species s ON o.species_id = s.id
+JOIN regions r ON o.region_id = r.id
+GROUP BY r.name, s.scientific_name
+ORDER BY r.name, total DESC;
 
 
 -- MISSION 4
