@@ -67,13 +67,15 @@ FROM observations
 JOIN species ON observations.species_id = species.id;
 
 -- 12. Most observed species per region
-SELECT regions.name AS region, species.scientific_name, COUNT(*) AS total
-FROM observations
-JOIN species ON observations.species_id = species.id
-JOIN regions ON observations.region_id = regions.id
-GROUP BY region, species.scientific_name
-ORDER BY region, total DESC;
-
+SELECT 
+    r.name AS region,
+    s.scientific_name,
+    COUNT(*) AS total
+FROM observations o
+JOIN species s ON o.species_id = s.id
+JOIN regions r ON o.region_id = r.id
+GROUP BY r.name, s.scientific_name
+ORDER BY r.name, total DESC;
 
 -- Level 4 (optional) – Data Manipulation
 
